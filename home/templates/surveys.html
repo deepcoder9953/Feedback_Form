@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block start %}
+
+<div class="container" style="display: flex; margin: 10px; margin-top: 20px; text-align: center;">
+    {% for feedback in feedbacks %}
+    <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Survey- {{feedback.id}}</h5>
+          <p class="card-text">Your feedback matters a lot for us. Please give us feedback.</p>
+          <a href="/feedback/{{feedback.id}}" class="btn btn-primary">Start feedback</a>
+        </div>
+      </div>
+      {% endfor %}
+</div>
+
+
+{% endblock %}

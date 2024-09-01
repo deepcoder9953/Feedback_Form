@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block start %}
+<div class="container">
+    <form action="" method="post">
+        {% csrf_token %}
+        {% for question in questions %}
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title">{{ question.questions }}</span>
+                <div class="input-field">
+                    {% if question.question_type == "Text" %}
+                    <input type="text" name="response_{{ question.id }}" class="validate" placeholder="Enter answer">
+                    
+                    {% elif question.question_type == "BigText" %}
+                    <textarea class="form-control" placeholder="Leave a comment here"
+                        id="floatingTextarea" name="response_{{ question.id }}"></textarea>
+                    
+                    {% elif question.question_type == "Radio" %}
+                    {% for option in question.options.all %}
+                    <p>
+                        <label>
+                            <input type="radio" name="options_{{ question.id }}" value="{{ option.id }}">
+                            <span>{{ option.option_name }}</span>
+                        </label>
+                    </p>
+                    {% endfor %}
+                    
+                    {% elif question.question_type == "Checkbox" %}
+                    {% for option in question.options.all %}
+                    <p>
+                        <label>
+                            <input type="checkbox" name="options_{{ question.id }}" value="{{ option.id }}">
+                            <span>{{ option.option_name }}</span>
+                        </label>
+                    </p>
+                    {% endfor %}
+                    
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+{% endblock %}
